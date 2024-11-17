@@ -13,10 +13,11 @@ import streamlit as st
 
 # Loading the saved model
 loaded_model = pickle.load(open('trained_model.sav', 'rb'))
-normalizer = StandardScaler()
+normalizer = pickle.load(open('scaler.pkl', 'rb'))
 
 # Creating the function
 def prediction(input_data):
+    if(input_data[0] == 0): return (f"Predicted Charges: RS: 0.00")
     mapp = {"Northeast": [1.0, 0.0, 0.0, 0.0],
             "Northwest": [0.0, 1.0, 0.0, 0.0],
             "Southeast": [0.0, 0.0, 1.0, 0.0],
@@ -36,7 +37,7 @@ def prediction(input_data):
         
     input_data_numpy_arr = np.asarray(final)
     input_data_reshaped = input_data_numpy_arr.reshape(1,-1)
-    input_data_norm = normalizer.fit_transform(input_data_reshaped)
+    input_data_norm = normalizer.transform(input_data_reshaped)
     return (f"Predicted Charges: RS: {loaded_model.predict(input_data_norm)[0]: .2f}")
     
 
@@ -44,6 +45,7 @@ def prediction(input_data):
 # Main function
 def main():
     # App title with background color
+    
     st.markdown(
         """
         <div style="background-color:#f44336;padding:10px;border-radius:10px">
