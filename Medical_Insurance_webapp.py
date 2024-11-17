@@ -37,7 +37,7 @@ def prediction(input_data):
     input_data_numpy_arr = np.asarray(final)
     input_data_reshaped = input_data_numpy_arr.reshape(1,-1)
     input_data_norm = normalizer.fit_transform(input_data_reshaped)
-    return (f"Predicted Charges: RS: {loaded_model.predict(input_data_norm)[0]}")
+    return (f"Predicted Charges: RS: {loaded_model.predict(input_data_norm)[0]: .2f}")
     
 
 
