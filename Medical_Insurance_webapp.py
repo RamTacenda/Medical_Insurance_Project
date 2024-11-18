@@ -12,7 +12,7 @@ import streamlit as st
 
 
 # Loading the saved model
-loaded_model = pickle.load(open('trained_model.sav', 'rb'))
+loaded_model = pickle.load(open('rfregressor_trained_model.sav', 'rb'))
 normalizer = pickle.load(open('scaler.pkl', 'rb'))
 
 # Creating the function
